@@ -262,7 +262,7 @@ class IotaBasic:
         print("Bootstrapping the Coordinator...")
         # Need to do it again otherwise the coo will not bootstrap
         self.coo.cmd(
-            f'./hornet --cooBootstrap --cooStartIndex 0 > coo.bootstrap.log &')
+            f'./hornet --cooBootstrap --cooStartIndex 0 > coo.bootstrap.log 2>&1 &')
         print("Waiting for $bootstrap_tick seconds ... ⏳")
         time.sleep(30)
         bootstrapped = self.coo.cmd(
@@ -278,7 +278,7 @@ class IotaBasic:
     def startContainers(self):
         print("\nStarting the containers...")
         for node in self.containers.values():
-            node.cmd(f'./hornet > {node.name}.log &')
+            node.cmd(f'./hornet > {node.name}.log 2>&1 &')
             print(f"\nStarting {node.name}... ⏳")
             time.sleep(3)
             print(f"{node.name} is up and running! ✅")
